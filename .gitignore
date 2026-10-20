@@ -1,0 +1,15 @@
+# 비밀 값
+.env
+.env.*
+*.pem
+
+# 개인 메모·캡처 원본
+_private/
+*.zip
+
+# 편집기·OS
+.vscode/
+.DS_Store
+Thumbs.db
+node_modules/
+.vercel

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>로직 테스트</title>
+  <style>
+    body { font-family: "Malgun Gothic", system-ui, sans-serif; max-width: 860px; margin: 24px auto; padding: 0 16px; background: #f4f6fa; color: #1d2433; }
+    h1 { font-size: 1.3rem; }
+    #summary { font-weight: 700; padding: 10px 14px; border-radius: 8px; margin: 12px 0; }
+    .all-pass { background: #e8f6ed; color: #157f3b; }
+    .has-fail { background: #fdecec; color: #c62828; }
+    li { padding: 4px 0; border-bottom: 1px solid #dde2ea; list-style: none; }
+    .pass::before { content: "PASS "; color: #157f3b; font-weight: 700; }
+    .fail::before { content: "FAIL "; color: #c62828; font-weight: 700; }
+    .fail { color: #c62828; }
+    ul { padding: 0; }
+  </style>
+</head>
+<body>
+  <h1>logic.js 테스트</h1>
+  <p>화면·DB와 상관없는 규칙을 확인합니다. 모든 항목이 PASS여야 배포합니다. <a href="index.html">← 앱으로</a></p>
+  <div id="summary"></div>
+  <ul id="results"></ul>
+
+  <script src="logic.js"></script>
+  <script src="tests.js"></script>
+  <script>
+    const results = runAllTests();
+    const failed = results.filter((r) => !r.ok);
+    const summary = document.getElementById("summary");
+    summary.textContent = failed.length === 0
+      ? `모든 테스트 PASS (${results.length}/${results.length})`
+      : `FAIL ${failed.length}건 / 전체 ${results.length}건`;
+    summary.className = failed.length === 0 ? "all-pass" : "has-fail";
+    document.getElementById("results").innerHTML = results
+      .map((r) => `<li class="${r.ok ? "pass" : "fail"}">${r.name}${r.ok ? "" : ` — ${r.detail}`}</li>`)
+      .join("");
+  </script>
+</body>
+</html>

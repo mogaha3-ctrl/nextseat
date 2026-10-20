@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>공용 장비 대여 현황판</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="appHeader" class="app-header logged-out">
+    <div class="header-inner">
+      <div>
+        <h1>공용 장비 대여 현황판</h1>
+        <p class="header-sub">교육용 가상 장비 · 가상 계정 전용</p>
+      </div>
+      <div id="headerInfo" class="header-info">
+        <span class="badge-view">보기만 가능 · 로그인하면 대여할 수 있습니다</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div id="notice" class="notice hidden" role="status" aria-live="polite"></div>
+
+    <section id="summary" class="summary" aria-label="요약"></section>
+
+    <div class="layout">
+      <!-- 왼쪽 영역 -->
+      <aside class="side">
+        <!-- 로그인 전 -->
+        <section id="authPanel" class="panel">
+          <h2>로그인</h2>
+          <form id="authForm" autocomplete="on">
+            <label>이메일
+              <input id="authEmail" type="email" placeholder="test1@example.com" required>
+            </label>
+            <label>비밀번호
+              <input id="authPassword" type="password" minlength="6" placeholder="6자 이상" required>
+            </label>
+            <div class="btn-row">
+              <button type="submit" id="loginBtn" class="btn primary">로그인</button>
+              <button type="button" id="signupBtn" class="btn">회원가입</button>
+            </div>
+            <p class="hint">실제 이메일·비밀번호 대신 가상 계정을 사용하세요.</p>
+          </form>
+        </section>
+
+        <!-- 로그인 후 -->
+        <section id="loanPanel" class="panel hidden">
+          <h2>대여</h2>
+          <p id="loanEmpty" class="hint">목록에서 <b>대여</b> 버튼을 누르면 여기에서 반납예정일을 고릅니다.</p>
+          <form id="loanForm" class="hidden">
+            <p class="selected">선택한 장비: <b id="loanItemName"></b></p>
+            <label>반납예정일 (오늘부터 7일 이내)
+              <input id="loanDue" type="date" required>
+            </label>
+            <div class="btn-row">
+              <button type="submit" class="btn primary">대여 확정</button>
+              <button type="button" id="loanCancelBtn" class="btn">취소</button>
+            </div>
+          </form>
+        </section>
+
+        <section id="itemPanel" class="panel hidden">
+          <h2 id="itemFormTitle">장비 등록</h2>
+          <form id="itemForm">
+            <label>장비 이름
+              <input id="itemName" type="text" maxlength="40" placeholder="예: 휴대용 무전기 3번" required>
+            </label>
+            <label>분류
+              <select id="itemCategory" required></select>
+            </label>
+            <label>보관 위치
+              <input id="itemLocation" type="text" maxlength="40" placeholder="예: 설비동 1층 상황실" required>
+            </label>
+            <div class="btn-row">
+              <button type="submit" id="itemSubmitBtn" class="btn primary">등록</button>
+              <button type="button" id="itemCancelBtn" class="btn hidden">수정 취소</button>
+            </div>
+          </form>
+        </section>
+      </aside>
+
+      <!-- 오른쪽 영역 -->
+      <main class="main">
+        <section class="panel">
+          <div class="section-head">
+            <h2>장비 목록</h2>
+            <button type="button" id="refreshBtn" class="btn">새로 불러오기</button>
+          </div>
+          <div class="toolbar">
+            <input id="searchInput" type="search" placeholder="이름·위치 검색">
+            <select id="categoryFilter" aria-label="분류 필터"></select>
+            <select id="statusFilter" aria-label="상태 필터">
+              <option value="">전체 상태</option>
+              <option value="대여 가능">대여 가능</option>
+              <option value="대여중">대여중</option>
+            </select>
+            <button type="button" id="filterResetBtn" class="btn small">초기화</button>
+          </div>
+          <div class="table-wrap">
+            <table class="items">
+              <thead>
+                <tr><th>이름</th><th>분류</th><th>위치</th><th>상태</th><th class="col-actions">작업</th></tr>
+              </thead>
+              <tbody id="itemRows"></tbody>
+            </table>
+          </div>
+          <p id="itemEmpty" class="hint hidden">조건에 맞는 장비가 없습니다.</p>
+        </section>
+
+        <section class="panel">
+          <h2>내 대여</h2>
+          <div id="myLoans"></div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      화면의 버튼은 사용을 돕는 안내이며, 최종 허용·거부는 DB가 판정합니다.
+      · <a href="test.html">test.html</a>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="logic.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
