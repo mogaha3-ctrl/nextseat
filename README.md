@@ -24,11 +24,27 @@ AI 리더스 아카데미 과제 「예시 4) 공용물품 대여 장부 (GitHub
 | `build-config.js`, `vercel.json` | Vercel 환경변수 → config.js |
 | `test.html`, `tests.js` | 로직 테스트 33개 |
 | `supabase_setup.sql` | 표 2개·RLS·트리거·가상 장비 10개 |
+| `demo.js` | 체험 모드 (Supabase 연결 전, 브라우저 저장) |
 | `PRD.md`, `CLAUDE.md` | 요구사항 / AI 작업 규칙 |
+| `제출자료/` | 지원센터 제출글과 첨부용 캡처 |
 | `콘솔테스트.md` | 화면을 우회한 DB 권한 확인 방법 |
-| `제출양식_초안.md` | 제출 설명 초안 |
+| `제출양식_초안.md` | 워크숍 제출 양식 초안 |
 
-## 배포 따라 하기 (약 20분)
+## 가장 빠른 제출: Vercel 배포만 (약 5분, 휴대폰 가능)
+
+Supabase를 연결하지 않아도 **체험 모드**로 바로 동작합니다 (데이터는 접속한 브라우저에만 저장, 체험 계정 `test1@example.com` / `test1234`).
+
+1. vercel.com 접속 → **Continue with GitHub** 로 로그인 (mogaha3-ctrl 계정)
+2. **Add New… → Project** → 목록에서 **nextseat** 옆 **Import**
+   - 목록에 없으면 "Adjust GitHub App Permissions"에서 nextseat 저장소 접근 허용
+3. 설정은 그대로 두고 (Framework Preset: Other) **Deploy**
+4. 축하 화면이 나오면 **Continue to Dashboard** → **Domains**에 보이는 `https://○○○.vercel.app` 이 제출 주소
+5. 시크릿 창에서 열리는지 확인 → `제출자료/제출글.md` 의 주소 칸에 붙여 넣고 제출
+
+Supabase를 연결하면(아래) 여러 사람·여러 기기가 같은 데이터를 공유하는 정식 모드가 됩니다.
+정식 모드에서는 체험 계정이 없으므로 `test1@example.com` / `test1234` 로 한 번 **회원가입**해 두세요.
+
+## 정식 모드: Supabase까지 연결 (약 20분)
 
 ### 1) Supabase — DB 만들기
 1. supabase.com → 수업에서 만든 **academy** 프로젝트(없으면 New project) 열기

@@ -45,10 +45,21 @@ h2 { font-size: 1.05rem; margin-bottom: 12px; }
 .container { max-width: 1180px; margin: 0 auto; padding: 16px; }
 
 /* 알림 */
-.notice { padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; font-weight: 500; }
+.notice {
+  position: sticky; top: 8px; z-index: 10;
+  padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
 .notice.error { background: var(--danger-bg); color: var(--danger); border: 1px solid #f5c2c2; }
 .notice.ok { background: #e8f6ed; color: var(--ok); border: 1px solid #bfe3cb; }
 .notice.info { background: #eaf0fd; color: var(--primary); border: 1px solid #c8d6f6; }
+
+/* 체험 모드 안내 */
+.demo-banner {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between;
+  background: #fff8e1; color: #6d4c00; border: 1px solid #f3d27a; border-radius: 8px;
+  padding: 10px 14px; margin-bottom: 14px; font-size: 0.9rem;
+}
 
 /* 요약 카드 */
 .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 16px; }

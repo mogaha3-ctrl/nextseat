@@ -35,7 +35,7 @@
 | DB 함수 | `eqp_today()` | 한국 날짜 오늘 |
 | 트리거 함수 | `eqp_items_before_write`, `eqp_loans_before_insert`, `eqp_loans_before_update`, `eqp_loans_after_write` | R-03·R-07, R-02·R-04·R-05, R-06, R-07 |
 | 설정 상수 | `SUPABASE_URL`, `SUPABASE_KEY` | config.js |
-| 클라이언트 | `db` | `supabase.createClient(...)` 결과 (app.js) |
+| 클라이언트 | `db` | `supabase.createClient(...)` 결과, 연결 정보가 없으면 `createDemoClient()` (demo.js) |
 | 상태 | `state` | session, items, myLoans, filters, selectedItemId, editingItemId |
 | logic.js | `todayKST`, `addDays`, `dueDateRange`, `validateDueDate`, `isOverdue`, `sortMyLoans`, `summarize`, `filterItems`, `validateItemInput`, `canEditItem`, `explainError`, `escapeHtml` | 화면·DB 무관 규칙 |
 | app.js 데이터 | `loadItems`, `loadMyLoans`, `refreshAll` | 불러오기 |
@@ -56,3 +56,5 @@
 | 로그인 직후 화면이 멈춤 | `onAuthStateChange` 콜백 안에서 바로 다른 Supabase 요청을 await함 | 콜백 안에서는 `setTimeout(refreshAll, 0)`처럼 다음 차례로 미룬다 |
 | 목록이 비어 있음 | config.js가 예시 값 그대로 | 앱이 "Supabase 연결 정보가 없습니다"를 띄우면 config.js 또는 Vercel 환경변수를 채운다 |
 | 작업 버튼 칸 테두리가 어긋남 | `<td>`에 `display:flex`를 줌 | 표 칸 안에 `<div class="actions-wrap">`를 두고 그 div에 flex를 준다 |
+| 새로고침 후 "대여" 안내 문구가 사라짐 | `classList.toggle(이름, undefined)`는 켜고 끄기를 뒤집음 | toggle의 두 번째 값은 `Boolean(...)`으로 감싸 true/false만 넘긴다 |
+| 아래쪽에서 삭제하면 거부 이유가 안 보임 | 알림이 페이지 맨 위에만 있음 | 알림 상자는 `position: sticky`로 화면 상단에 붙인다 |

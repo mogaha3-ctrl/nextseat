@@ -20,6 +20,11 @@
   </header>
 
   <div class="container">
+    <div id="demoBanner" class="demo-banner hidden">
+      <span><b>체험 모드</b> · Supabase 연결 전이라 데이터가 이 브라우저에만 저장됩니다.
+        체험 계정 <b>test1@example.com</b> / <b>test1234</b> (새 가상 계정으로 가입해도 됩니다)</span>
+      <button type="button" id="demoResetBtn" class="btn small">체험 데이터 초기화</button>
+    </div>
     <div id="notice" class="notice hidden" role="status" aria-live="polite"></div>
 
     <section id="summary" class="summary" aria-label="요약"></section>
@@ -125,6 +130,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
   <script src="config.js"></script>
   <script src="logic.js"></script>
+  <script src="demo.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

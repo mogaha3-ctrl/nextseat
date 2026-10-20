@@ -117,7 +117,7 @@ function renderSide() {
 
   // 대여 패널
   const item = state.items.find((i) => i.id === state.selectedItemId);
-  const selectable = item && item.status === ITEM_STATUS.AVAILABLE;
+  const selectable = Boolean(item && item.status === ITEM_STATUS.AVAILABLE);
   if (!selectable) state.selectedItemId = null;
   $("loanEmpty").classList.toggle("hidden", selectable);
   $("loanForm").classList.toggle("hidden", !selectable);
@@ -413,21 +413,28 @@ function isConfigured() {
   );
 }
 
+function showDemoBanner() {
+  const banner = $("demoBanner");
+  banner.classList.remove("hidden");
+  $("demoResetBtn").addEventListener("click", () => {
+    if (!confirm("체험 데이터를 처음 상태로 되돌릴까요?")) return;
+    db.reset();
+    showNotice("체험 데이터를 처음 상태로 되돌렸습니다.", "info");
+  });
+}
+
 function init() {
   fillCategorySelects();
   bindEvents();
   render();
 
-  if (!isConfigured()) {
-    showNotice("Supabase 연결 정보가 없습니다. config.js(또는 Vercel 환경변수 SUPABASE_URL·SUPABASE_KEY)를 채워 주세요.");
-    return;
+  if (isConfigured() && window.supabase) {
+    db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  } else {
+    // Supabase 연결 정보가 없으면 체험 모드 (이 브라우저에만 저장)
+    db = createDemoClient();
+    showDemoBanner();
   }
-  if (!window.supabase) {
-    showNotice("Supabase 라이브러리를 불러오지 못했습니다. 인터넷 연결을 확인해 주세요.");
-    return;
-  }
-
-  db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   // 로그인 상태가 바뀔 때마다 (처음 열 때 포함) 다시 그린다. 새로고침해도 로그인 유지.
   db.auth.onAuthStateChange((_event, session) => {
